@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: vagrant
+  become: yes
+
+  tasks:
+  - name: Always Expand Bash Aliases
+    copy:
+      content: shopt -s expand_aliases;
+      dest: /etc/profile.d/alias.sh
