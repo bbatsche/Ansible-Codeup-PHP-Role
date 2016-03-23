@@ -1,0 +1,54 @@
+---
+- hosts: all
+  vars_files:
+  - "../../defaults/main.yml"
+  vars:
+    site_type: php
+    domain: php-test.dev
+    storage_dir: "../../storage"
+  pre_tasks:
+  - name: Delete PHP Aliases
+    lineinfile:
+      dest: "{{ ansible_user_dir }}/.profile"
+      state: absent
+      regexp: "^alias {{ item }}"
+    with_items:
+    - phpunit
+    - php
+  - name: Delete Laravel Environment Variable
+    lineinfile:
+      dest: "{{ ansible_user_dir }}/.profile"
+      state: absent
+      regexp: "^export LARAVEL_ENV"
+  - name: Delete previous composer packages
+    file: path={{ ansible_user_dir}}/.composer/{{ item }} state=absent
+    with_items:
+    - composer.json
+    - composer.lock
+    - vendor
+  - name: Delete Xdebug
+    apt: package=php5-xdebug state=absent purge=yes
+    become: true
+    notify: Restart FPM
+  roles:
+  - bbatsche.Nginx
+  tasks:
+  - include: "../../tasks/main.yml"
+  post_tasks:
+  - name: Create Disabled Function Test
+    copy:
+      content: "<?php shell_exec('pwd');"
+      dest: "{{ http_root }}/{{ domain }}/public/disabled_functions_test.php"
+  - name: Create Openbase Dir Test
+    copy:
+      content: "<?php include '/etc/passwd';"
+      dest: "{{ http_root }}/{{ domain }}/public/open_basedir_test.php"
+  - name: Create Session Test
+    copy:
+      content: "<?php session_start(); echo session_status();"
+      dest: "{{ http_root }}/{{ domain }}/public/session_test.php"
+  handlers:
+  - include: "../../handlers/main.yml"
+  - name: Restart FPM
+    service: name=php5-fpm state=restarted
+    become: true
