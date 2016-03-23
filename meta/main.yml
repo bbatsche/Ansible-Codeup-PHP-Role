@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Ben Batschelet
-  description:
+  description: Lightweight role for installing PHP and creating Nginx site for it. Primarily useful for Codeup bootcamp students
   license: MIT
   min_ansible_version: 2.0 # syntax for composer module changed between 1.9 & 2.0
   platforms:
