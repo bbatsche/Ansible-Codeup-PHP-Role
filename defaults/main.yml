@@ -9,6 +9,8 @@ copy_index_php: no
 
 enable_suhosin: no
 
+timezone: Etc/UTC
+
 disabled_php_functions:
   - dl
   - exec

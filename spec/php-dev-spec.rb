@@ -38,11 +38,15 @@ describe command("php -i") do
   end
 
   it "has the default timezone set" do
-    expect(subject.stdout).to match /^Default timezone => UTC/
+    expect(subject.stdout).to match /^Default timezone => Etc\/UTC/
   end
 
   it "has Suhosin enabled" do
     expect(subject.stdout).to match /This server is protected with the Suhosin Extension/
+  end
+
+  it "has the Laravel environment set" do
+    expect(subject.stdout).to match /_SERVER\["LARAVEL_ENV"\] => local/
   end
 
   context "suhosin" do
@@ -82,12 +86,6 @@ end
 describe command("psysh --version") do
   it "is installed" do
     expect(subject.stdout).to match /Psy Shell v0\.7\.\d+/
-  end
-end
-
-describe command("echo $LARAVEL_ENV") do
-  it "has the Laravel environment set" do
-    expect(subject.stdout).to eq("local\n")
   end
 end
 
