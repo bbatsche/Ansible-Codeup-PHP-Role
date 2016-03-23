@@ -1,11 +1,18 @@
 ---
 - hosts: all
   remote_user: root
-  become: yes
-
+  become: true
   vars_files:
-    - defaults/main.yml
+  - defaults/main.yml
+  vars:
+    domain: php-test.dev
+  roles:
+  - role: bbatsche.Nginx
+    site_type: php
   tasks:
-    - include: tasks/main.yml
+  - include: tasks/main.yml
   handlers:
-    - include: handlers/main.yml
+  - include: handlers/main.yml
+  - name: Restart FPM
+    service: name=php5-fpm state=restarted
+    become: true
