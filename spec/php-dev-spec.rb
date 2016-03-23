@@ -45,6 +45,10 @@ describe command("php -i") do
     expect(subject.stdout).to match /This server is protected with the Suhosin Extension/
   end
 
+  it "has the max upload size set" do
+    expect(subject.stdout).to match /upload_max_filesize => 10M/
+  end
+
   it "has the Laravel environment set" do
     expect(subject.stdout).to match /_SERVER\["LARAVEL_ENV"\] => local/
   end
