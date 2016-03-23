@@ -1,2 +1,4 @@
 ---
-# handlers
+- name: Restart FPM
+  service: name=php5-fpm state=restarted
+  become: yes
