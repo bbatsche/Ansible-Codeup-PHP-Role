@@ -1,32 +1,44 @@
-Role Name
-=========
+Codeup PHP Ansible Role
+=======================
 
-A brief description of the role goes here.
+[![Build Status](https://travis-ci.org/bbatsche/Ansible-Codeup-PHP-Role.svg?branch=master)](https://travis-ci.org/bbatsche/Ansible-Codeup-PHP-Role)
 
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This is a light weight Ansible role for installing PHP and configuring a site with it in Nginx. It is primarily intended for [Codeup](http://codeup.com/) students. If you need more flexibility in setting up PHP, I would recommend you look at my [Ansible Phpenv Role](https://github.com/bbatsche/Ansible-Phpenv-Site-Role) instead of this one.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- `domain` &mdash; Site domain to be created
+- `dynamic_php` &mdash; Whether or not Nginx should rewrite all requests on your site through `index.php`. This is used for most modern frameworks. Default is no
+- `max_upload_size` &mdash; Maximum upload size in MB. Default is "10"
+- `timezone` &mdash; Timezone that should be configured in PHP. Default is "Etc/UTC"
+- `phpunit_version` &mdash; Version of [PHPUnit](https://phpunit.de/) to install with Composer. Default is "~4.8"
+- `psysh_version` &mdash; Version of [PsySH](http://psysh.org/) to install with Composer. Default is "~0.7"
+- `copy_index_php` &mdash; Whether to copy an `index.php` stub file to the new site. Default is no
+- `enable_suhosin` &mdash; Whether or not to install and setup [Suhosin extension](https://suhosin.org/stories/index.html). Because this can interfere with some libraries, the default is no.
+- `disabled_function` &mdash; A list of functions to disable when PHP is running from the web. The default value blocks functions that could be used to execute shell code or manipulate other processes on the server.
+- `http_root` &mdash; Directory all sites will be created under. Default is "/srv/http"
+- `storage_dir` &mdash; Directory on local machine to store generated configuration data. In particular, encryption keys for [Suhosin](https://suhosin.org/stories/index.html) will be stored locally so they can be safely reinserted for subsequent provisions.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role depends on bbatsche.Nginx. You must install that role first using:
+
+```bash
+ansible-galaxy install bbatsche.Nginx
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
 ```yml
 - hosts: servers
   roles:
-     - { role: bbatsche.rolename, x: 42 }
+  - role: bbatsche.Codeup-PHP
+    domain: my-php-site.dev
+    enable_suhosin: yes
+    storage_dir: ./storage
 ```
 
 License
