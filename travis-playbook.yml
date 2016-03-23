@@ -6,6 +6,7 @@
   - defaults/main.yml
   vars:
     domain: php-test.dev
+    storage_dir: storage
   roles:
   - role: bbatsche.Nginx
     site_type: php
