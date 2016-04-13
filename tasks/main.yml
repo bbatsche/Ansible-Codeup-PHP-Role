@@ -125,3 +125,7 @@
 - name: Copy index.php
   copy: src=index.php dest={{ http_root }}/{{ domain }}/public/index.php
   when: copy_index_php
+
+- name: Copy favicon.ico
+  copy: src=favicon.ico dest={{ http_root }}/{{ domain }}/public/favicon.ico
+  when: copy_favicon

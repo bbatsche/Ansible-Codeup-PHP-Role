@@ -3,7 +3,11 @@ require_relative "bootstrap"
 
 RSpec.configure do |config|
   config.before :suite do
-    AnsibleHelper.instance.playbook "playbooks/php-playbook.yml", copy_index_php: true, env_name: "prod"
+    AnsibleHelper.instance.playbook("playbooks/php-playbook.yml", {
+      copy_index_php: true,
+      copy_favicon: true,
+      env_name: "prod"
+    })
   end
 end
 

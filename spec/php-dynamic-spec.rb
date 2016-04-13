@@ -3,7 +3,11 @@ require_relative "bootstrap"
 
 RSpec.configure do |config|
   config.before :suite do
-    AnsibleHelper.instance.playbook "playbooks/php-playbook.yml", copy_index_php: true, dynamic_php: true
+    AnsibleHelper.instance.playbook("playbooks/php-playbook.yml", {
+      copy_index_php: true,
+      copy_favicon: true,
+      dynamic_php: true
+    })
   end
 end
 
