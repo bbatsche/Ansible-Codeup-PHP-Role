@@ -5,6 +5,11 @@ Codeup PHP Ansible Role
 
 This is a light weight Ansible role for installing PHP and configuring a site with it in Nginx. It is primarily intended for [Codeup](http://codeup.com/) students. If you need more flexibility in setting up PHP, I would recommend you look at my [Ansible Phpenv Role](https://github.com/bbatsche/Ansible-Phpenv-Site-Role) instead of this one.
 
+Requirements
+------------
+
+This role takes advantage of Linux filesystem ACLs and a group called "web-admin" for granting access to particular directories. You can either configure those steps manually or install the [`bbatsche.Base`](https://galaxy.ansible.com/bbatsche/Base/) role.
+
 Role Variables
 --------------
 
@@ -15,6 +20,7 @@ Role Variables
 - `phpunit_version` &mdash; Version of [PHPUnit](https://phpunit.de/) to install with Composer. Default is "~4.8"
 - `psysh_version` &mdash; Version of [PsySH](http://psysh.org/) to install with Composer. Default is "~0.7"
 - `copy_index_php` &mdash; Whether to copy an `index.php` stub file to the new site. Default is no
+- `copy_favicon` &mdash; Whether to copy a Codeup favicon file to the public directory. Default is no
 - `enable_suhosin` &mdash; Whether or not to install and setup [Suhosin extension](https://suhosin.org/stories/index.html). Because this can interfere with some libraries, the default is no.
 - `disabled_function` &mdash; A list of functions to disable when PHP is running from the web. The default value blocks functions that could be used to execute shell code or manipulate other processes on the server.
 - `http_root` &mdash; Directory all sites will be created under. Default is "/srv/http"
