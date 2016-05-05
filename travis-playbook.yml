@@ -8,6 +8,7 @@
     domain: php-test.dev
     storage_dir: storage
   roles:
+  - role: bbatsche.Base
   - role: bbatsche.Nginx
     site_type: php
   tasks:

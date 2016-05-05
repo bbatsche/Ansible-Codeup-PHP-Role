@@ -3,6 +3,12 @@
   remote_user: vagrant
   become: yes
 
+  vars:
+    console_user: vagrant
+
+  roles:
+    - bbatsche.Base
+
   tasks:
   - name: Always Expand Bash Aliases
     copy:
