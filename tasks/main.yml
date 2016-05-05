@@ -73,11 +73,11 @@
   notify: Restart FPM
 
 - name: Create Log Directory
-  file: path=/var/log/php state=directory owner={{ ansible_ssh_user }} group=www-data mode=03775
+  file: path=/var/log/php state=directory owner=www-data group=www-data mode=02775
   become: yes
 
 - name: Create FPM Log Directory
-  file: path=/var/log/php-fpm state=directory owner=www-data
+  file: path=/var/log/php-fpm state=directory owner=www-data group=www-data mode=02775
   become: yes
 
 - name: Set FPM Error Log Path
@@ -94,7 +94,7 @@
   become: yes
 
 - name: Create Session Directory
-  file: path=/var/lib/php5/session state=directory owner=www-data
+  file: path=/var/lib/php5/session state=directory owner=www-data group=www-data mode=02770
   become: yes
 
 - name: Copy Config
