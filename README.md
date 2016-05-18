@@ -1,7 +1,7 @@
-Codeup PHP Ansible Role
-=======================
+Codeup PHP Ansible Role (DEPRECATED)
+====================================
 
-[![Build Status](https://travis-ci.org/bbatsche/Ansible-Codeup-PHP-Role.svg?branch=master)](https://travis-ci.org/bbatsche/Ansible-Codeup-PHP-Role)
+The functionality of this role has been rolled up into [`bbatsche.PHP`](https://galaxy.ansible.com/bbatsche/PHP). Please use that role instead and do not specify a PHP version.
 
 This is a light weight Ansible role for installing PHP and configuring a site with it in Nginx. It is primarily intended for [Codeup](http://codeup.com/) students. If you need more flexibility in setting up PHP, I would recommend you look at my [Ansible Phpenv Role](https://github.com/bbatsche/Ansible-Phpenv-Site-Role) instead of this one.
 
